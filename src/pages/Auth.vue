@@ -41,7 +41,7 @@ export default {
 		let action = ref('login');
 
 		function handleLoginClick(){
-			toast.success("Yeah boi! You've clicked the button.")
+			toast.success("You've clicked the button.")
 		}
 
 		function changeAction(actionVal){
