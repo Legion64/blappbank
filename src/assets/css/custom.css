@@ -1,0 +1,45 @@
+html, body, #app{
+    background: #C61F48;
+
+    @apply
+    w-full
+    h-full
+    flex
+    justify-center
+    items-center
+    flex-col
+}
+
+.card{
+    min-height: 580px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    @apply opacity-25
+}
+
+.loginFade-enter-active,
+.loginFade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.loginFade-enter-from,
+.loginFade-leave-to {
+    opacity: 0;
+}
+
+.loginFade-enter-to,
+.loginFade-leave-from {
+    @apply opacity-100
+}
