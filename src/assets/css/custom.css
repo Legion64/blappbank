@@ -1,17 +1,17 @@
-html, body, #app{
+html, body, #app {
     background: #C61F48;
 
     @apply
     w-full
     h-full
-    flex
-    justify-center
-    items-center
-    flex-col
 }
 
-.card{
-    min-height: 580px;
+.card {
+    min-height: 600px;
+}
+
+.map{
+    height: 500px;
 }
 
 .fade-enter-active,

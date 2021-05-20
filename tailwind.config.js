@@ -13,6 +13,9 @@ module.exports = {
       colors: {
         'tinder': '#fe3c72',
         'tinder-100': '#fe5080'
+      },
+      height: {
+        card: '600px'
       }
     },
     flex: {

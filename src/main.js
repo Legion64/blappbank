@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import Uses from "./core/Uses.js";
+import Uses from "./core/uses.js";
 
 // Stylesheets
 import './assets/css/tailwind.css'

@@ -6,7 +6,7 @@ import TypeSelector from "../pages/TypeSelector.vue";
 
 const routes = [
     {
-        path: '/',
+        path: '/' || '/dashboard',
         component: Home
     },
     {
