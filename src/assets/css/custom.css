@@ -1,5 +1,6 @@
 html, body, #app {
     background: #C61F48;
+    font-family: "Roboto", sans-serif;
 
     @apply
     w-full
@@ -13,6 +14,36 @@ html, body, #app {
 .map{
     height: 500px;
 }
+
+.messenger{
+    height: 800px;
+}
+
+.chat-box{
+    height: calc(100% - 70px);
+}
+
+.message{
+    height: 70px;
+}
+
+.vertical-divider{
+    width: 1px;
+
+    @apply
+    h-full
+    block
+    bg-dark-600
+}
+.horizontal-divider{
+    height: 1px;
+
+    @apply
+    w-full
+    block
+    bg-dark-600
+}
+
 
 .fade-enter-active,
 .fade-leave-active {

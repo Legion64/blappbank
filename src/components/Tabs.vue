@@ -26,7 +26,7 @@ export default {
     },
   },
   emits: ["update:modelValue"],
-  setup(props, {slots, emit}) {
+  setup(props, {emit}) {
     const active = computed(() => props.modelValue);
     const tabs = ref([]);
 

@@ -20,7 +20,7 @@ class AxiosService {
      * @param url
      * @param params
      * @param options
-     * @returns {Promise<JSON>} Return a JSON data
+     * @returns {Promise<unknown>} Return a JSON data
      */
     getAsync(url, params, options){
         return this.requestAsync(this.configBuilder(url, params, 'get', options));
@@ -32,7 +32,7 @@ class AxiosService {
      * @param url
      * @param params
      * @param options
-     * @returns {Promise<JSON>} Return a JSON data
+     * @returns {Promise<unknown>} Return a JSON data
      */
     postAsync(url, params, options){
         return this.requestAsync(this.configBuilder(url, params, 'post', options));
@@ -44,7 +44,7 @@ class AxiosService {
      * @param url
      * @param params
      * @param options
-     * @returns {Promise<JSON>} Return a JSON data
+     * @returns {Promise<unknown>} Return a JSON data
      */
     putAsync(url, params, options){
         return this.requestAsync(this.configBuilder(url, params, 'put', options));
@@ -56,7 +56,7 @@ class AxiosService {
      * @param url
      * @param params
      * @param options
-     * @returns {Promise<JSON>} Return a JSON data
+     * @returns {Promise<unknown>} Return a JSON data
      */
     patchAsync(url, params, options){
         return this.requestAsync(this.configBuilder(url, params, 'patch', options));
@@ -68,7 +68,7 @@ class AxiosService {
      * @param url
      * @param params
      * @param options
-     * @returns {Promise<JSON>} Return a JSON data
+     * @returns {Promise<unknown>} Return a JSON data
      */
     deleteAsync(url, params, options){
         return this.requestAsync(this.configBuilder(url, params, 'delete', options));
@@ -82,9 +82,9 @@ class AxiosService {
      */
     requestAsync(config){
         return new Promise(async (resolve, reject) => {
-            await axios.request(config).then((res) => {
-                resolve(res.data);
-            }).catch(err => reject(err));
+            return axios.request(config)
+                .then((res) => resolve(res.data))
+                .catch(err => reject(err));
         });
     }
 

@@ -1,3 +1,9 @@
+<template>
+  <div v-if="isActive">
+    <slot />
+  </div>
+</template>
+
 <script>
 import { computed, inject, watchEffect, getCurrentInstance } from "vue";
 
@@ -27,9 +33,3 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div v-if="isActive">
-    <slot />
-  </div>
-</template>

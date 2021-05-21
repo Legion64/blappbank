@@ -3,6 +3,7 @@ import * as VueRouter from 'vue-router'
 import Home from "../pages/Home.vue";
 import Auth from "../pages/Auth.vue";
 import TypeSelector from "../pages/TypeSelector.vue";
+import Messenger from "../pages/Messenger.vue";
 
 const routes = [
     {
@@ -16,6 +17,10 @@ const routes = [
     {
         path: '/type',
         component: TypeSelector
+    },
+    {
+        path: '/messages',
+        component: Messenger
     }
 ]
 

@@ -12,19 +12,16 @@ module.exports = {
       },
       colors: {
         'tinder': '#fe3c72',
-        'tinder-100': '#fe5080'
+        'tinder-100': '#fe5080',
+        'dark-600': '#C4C4C4',
+        'dark-500': '#DFDFDF'
       },
-      height: {
-        card: '600px'
+      flex: {
+        '2': '2 2 0%',
+      },
+      fontFamily: {
+        'body': ['Roboto']
       }
-    },
-    flex: {
-      '1': '1 1 0%',
-      auto: '1 1 auto',
-      initial: '0 1 auto',
-      inherit: 'inherit',
-      none: 'none',
-      '2': '2 2 0%',
     }
   },
   variants: {
