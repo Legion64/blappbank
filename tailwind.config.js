@@ -14,10 +14,14 @@ module.exports = {
         'tinder': '#fe3c72',
         'tinder-100': '#fe5080',
         'dark-600': '#C4C4C4',
-        'dark-500': '#DFDFDF'
+        'dark-500': '#DFDFDF',
+        'message-pink': 'rgba(255, 210, 223, .6)',
+        'message-gray': 'rgba(227, 227, 227, .6)'
       },
       flex: {
         '2': '2 2 0%',
+        '3': '3 3 0%',
+        '4': '4 4 0%',
       },
       fontFamily: {
         'body': ['Roboto']
@@ -25,7 +29,9 @@ module.exports = {
     }
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['odd']
+    },
   },
   plugins: [],
 }

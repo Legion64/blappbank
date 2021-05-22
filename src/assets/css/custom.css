@@ -15,24 +15,11 @@ html, body, #app {
     height: 500px;
 }
 
-.messenger{
-    height: 800px;
-}
-
-.chat-box{
-    height: calc(100% - 70px);
-}
-
-.message{
-    height: 70px;
-}
-
 .vertical-divider{
     width: 1px;
 
     @apply
     h-full
-    block
     bg-dark-600
 }
 .horizontal-divider{

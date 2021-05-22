@@ -1,9 +1,11 @@
 import * as VueRouter from 'vue-router'
 
-import Home from "../pages/Home.vue";
-import Auth from "../pages/Auth.vue";
-import TypeSelector from "../pages/TypeSelector.vue";
-import Messenger from "../pages/Messenger.vue";
+import {defineAsyncComponent} from "vue";
+
+const Home = () => import('../pages/Home.vue')
+const Auth = () => import('../pages/Auth.vue')
+const TypeSelector = () => import('../pages/TypeSelector.vue')
+const Messenger = () => import('../pages/Messenger.vue')
 
 const routes = [
     {
