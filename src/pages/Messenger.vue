@@ -3,7 +3,7 @@
     <div class="messenger w-full md:w-10/12 lg:w-8/12 h-full md:h-5/6 bg-white md:rounded-xl shadow-2xl overflow-hidden flex">
       <div
         class="side-bar w-96 flex-1"
-        :class="!!active ? 'hidden md:block' : null"
+        :class="active !== null ? 'hidden md:block' : null"
       >
         <div class="h-14 flex justify-center items-center">
           <span class="text-xl uppercase font-bold">Matches</span>
@@ -31,7 +31,7 @@
       <div class="vertical-divider hidden md:block" />
       <div
         class="md:flex-1 lg:flex-2 xl:flex-3"
-        :class="!!active ? null : 'hidden md:block'"
+        :class="active === null ? 'hidden md:block' : null"
       >
         <Chat
           v-for="(user, index) of state.users"
