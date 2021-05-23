@@ -12,16 +12,21 @@
         Author ID: {{ message.author_id }}
       </div>
     </div>
-    <span class="m-2 text-gray-400 text-sm">{{ time }}</span>
+    <span class="m-2 text-gray-400 text-sm">{{ passingTime }}</span>
   </div>
 </template>
 <script>
-import {computed} from "vue";
-import moment from "moment";
+import {computed, onMounted, ref} from "vue";
+import {formatDistanceToNow} from "date-fns";
 
 export default {
   name: "Message",
-  props: ['message'],
+  props: {
+    message: {
+      type: Object,
+      required: true
+    }
+  },
   setup(props){
     const currentAuthorId = 1
 
@@ -29,13 +34,25 @@ export default {
       return props.message.author_id === currentAuthorId
     })
 
-    const time = computed(() => {
-      return moment.unix(props.message.created_at).format("MM/DD/YYYY");
+    const time = () => {
+      passingTime.value = formatDistanceToNow(props.message.created_at, {
+        addSuffix: true,
+        includeSeconds: true
+      });
+    }
+
+    const passingTime = ref(null)
+
+    onMounted(() => {
+      time()
+      setInterval(() => {
+        time()
+      }, 30000)
     })
 
     return {
       author,
-      time
+      passingTime
     }
   }
 }
