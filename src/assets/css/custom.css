@@ -31,6 +31,9 @@ html, body, #app {
     bg-dark-600
 }
 
+.abcRioButton, .abcRioButtonBlue{
+    width: 100% !important;
+}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -60,4 +63,19 @@ html, body, #app {
 .loginFade-enter-to,
 .loginFade-leave-from {
     @apply opacity-100
+}
+
+.error-enter-active,
+.error-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.error-enter-from,
+.error-leave-to {
+    opacity: 0;
+}
+
+.error-enter-to,
+.error-leave-from {
+    opacity: 1;
 }

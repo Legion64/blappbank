@@ -22,7 +22,7 @@
             Register
           </div>
         </div>
-        <div class="flex items-center h-full px-10">
+        <div class="flex items-center justify-center flex-col h-full px-10">
           <transition
             name="loginFade"
             mode="out-in"
@@ -32,21 +32,14 @@
               key="login"
               class="w-full"
             >
-              <button
-                class="px-4 py-2 w-full bg-tinder hover:bg-tinder-100 transition duration-300 text-white focus:outline-none"
-                @click="handleLoginClick"
-              >
-                Login
-              </button>
+              <Login />
             </div>
             <div
               v-else-if="action === 'register'"
               key="register"
               class="w-full"
             >
-              <button class="px-4 py-2 w-full bg-tinder text-white focus:outline-none">
-                Register
-              </button>
+              <Register />
             </div>
           </transition>
         </div>
@@ -56,28 +49,39 @@
 </template>
 
 <script>
-import {ref} from 'vue'
-import {useToast} from 'vue-toastification'
+import {onMounted, ref} from 'vue'
 import Flex from "../components/Flex.vue";
-
+import {useRouter} from "vue-router";
+import {useStore} from "vuex";
+import Login from "../components/LoginComponent.vue";
+import Register from "../components/RegisterComponent.vue";
 export default {
-	components: {Flex},
+	components: {Register, Login, Flex},
 	setup(){
-		const toast = useToast();
-		let action = ref('login');
+    // Hooks
+	  const router = useRouter()
+    const vuex = useStore()
 
-		function handleLoginClick(){
-			toast.success("You've clicked the button.")
-		}
+    // Action
+		const action = ref(null);
+
+    const routeAction = router.currentRoute.value.params.action
 
 		function changeAction(actionVal){
+      router.push(`/auth/${actionVal}`)
 			action.value = actionVal
 		}
+
+		onMounted(async () => {
+		  if(routeAction && (routeAction === 'login' || routeAction === 'register')){
+        action.value = routeAction
+      }
+    })
 
 		return {
 			action,
 			changeAction,
-			handleLoginClick
+      vuex
 		}
 	}
 }

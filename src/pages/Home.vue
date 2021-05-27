@@ -1,12 +1,10 @@
 <template>
   <Flex>
     <div class="card w-full md:w-8/12 bg-white md:rounded-xl shadow-2xl overflow-hidden md:my-36">
-      <div class="map w-full relative">
-        <button
-          class="px-10 py-4 text-md bg-tinder absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white rounded-full shadow-2xl focus:outline-none hover:bg-tinder-100 transition-all duration-300 uppercase font-medium"
-        >
-          Match Me
-        </button>
+      <div
+        class="map w-full relative"
+      >
+        <Map />
       </div>
       <div
         class="border border-gray-300 border-b-0 border-l-0 border-r-0"
@@ -26,7 +24,7 @@
             />
           </Tab>
           <Tab title="Other Matches">
-            Content B
+            <span>X gave blood to Y.</span>
           </Tab>
         </Tabs>
       </div>
@@ -41,11 +39,15 @@ import Tab from "../components/Tab.vue";
 import User from "../components/User.vue";
 import {onMounted, ref, reactive} from "vue";
 import AxiosFactory from "../core/services/AxiosService.js";
+import {useStore} from "vuex";
+
+import Map from "../components/Map.vue";
 
 export default {
   name: 'Home',
-  components: {Tab, Tabs, Flex, User},
+  components: {Map, Tab, Tabs, Flex, User},
   setup() {
+    const store = useStore()
     const active = ref(0);
     const state = reactive({
       users: null,
@@ -53,7 +55,7 @@ export default {
       error: null
     });
 
-    async function fetchUsers(){
+    async function fetchUsers() {
       await AxiosFactory().getAsync('/users').then(res => {
         state.loader = false
         state.users = res;
@@ -64,14 +66,19 @@ export default {
       });
     }
 
-    onMounted(async () => {
-      await fetchUsers();
-    })
+    async function handleMatchMe() {
+      store.commit('user/setLoading', true)
+    }
 
+    onMounted(() => {
+      fetchUsers();
+    })
 
     return {
       active,
-      state
+      state,
+      store,
+      handleMatchMe
     };
   },
 }

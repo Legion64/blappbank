@@ -10,9 +10,15 @@
   "dependencies": {
     "axios": "^0.21.1",
     "date-fns": "^2.21.3",
+    "google-auth-library": "^7.1.0",
+    "imask": "^6.0.7",
+    "leaflet": "^1.7.1",
+    "ol": "^6.5.0",
+    "ol-ext": "^3.2.2",
     "vue": "^3.0.5",
     "vue-router": "^4.0.8",
     "vue-toastification": "^2.0.0-rc.1",
+    "vuelayers": "^0.12.0-rc.25",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
