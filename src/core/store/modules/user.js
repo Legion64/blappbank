@@ -1,9 +1,6 @@
-import LocalStorage from "../../services/LocalStorageService.js";
 import AxiosFactory from "../../services/AxiosService.js";
-import {USER_AUTH_TOKEN} from "../../constants/AuthConstants.js";
 import GeolocationService from "../../services/GeolocationService.js";
 import LocalStorageService from "../../services/LocalStorageService.js";
-import {comment} from "postcss";
 
 const state = () => ({
     error: null,

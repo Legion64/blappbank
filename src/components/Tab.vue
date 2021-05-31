@@ -10,9 +10,12 @@ import { computed, inject, watchEffect, getCurrentInstance } from "vue";
 export default {
   name: "Tab",
   props: {
-    title: String,
+    title: {
+      type: String,
+      required: true
+    },
   },
-  setup(props) {
+  setup() {
     const instance = getCurrentInstance();
     const { tabs, active } = inject("tabsState");
 

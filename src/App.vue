@@ -66,8 +66,6 @@
 
 <script>
 import {useStore} from "vuex";
-import LocalStorageService from "./core/services/LocalStorageService.js";
-import {ref} from "vue";
 
 export default {
   setup(){

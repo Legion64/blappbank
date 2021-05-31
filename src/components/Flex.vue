@@ -13,7 +13,8 @@ export default {
 	props: {
 		classes: {
 			type: Array,
-			required: false
+			required: false,
+      default: null
 		}
 	},
 	setup(props){

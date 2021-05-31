@@ -80,9 +80,8 @@
 </template>
 
 <script>
-import {computed, inject, onMounted, ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import Message from "./Message.vue";
-import {getTime} from "date-fns";
 import LocalStorageService from "../core/services/LocalStorageService.js";
 import AxiosFactory from "../core/services/AxiosService.js";
 import {useToast} from "vue-toastification";
@@ -156,7 +155,7 @@ export default {
         await AxiosFactory().getAsync(`/api/messagelist/${LocalStorageService.json('credentials', 'username')}/${selectedUser.value}`)
             .then((res) => {
               messages.value = res
-            }).catch(err => clearInterval(interval))
+            }).catch(_ => clearInterval(interval))
 
         scrollToBottom();
       }, 2000)

@@ -17,7 +17,6 @@
 </template>
 <script>
 import {computed, onMounted, ref} from "vue";
-import {formatDistanceToNow} from "date-fns";
 import LocalStorageService from "../core/services/LocalStorageService.js";
 
 export default {

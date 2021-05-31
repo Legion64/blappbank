@@ -165,7 +165,7 @@
 
 <script>
 import Flex from "../components/Flex.vue";
-import {onBeforeUpdate, onMounted, onUnmounted, onUpdated, reactive, ref, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import AxiosFactory from "../core/services/AxiosService.js";
 import LocalStorageService from "../core/services/LocalStorageService.js";
 import {useToast} from "vue-toastification";

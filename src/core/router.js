@@ -1,8 +1,6 @@
 import * as VueRouter from 'vue-router'
 
 import store from './store/index.js'
-import LocalStorageService from "./services/LocalStorageService.js";
-import {useRouter} from "vue-router";
 
 const Home = () => import('../pages/Home.vue')
 const Auth = () => import('../pages/Auth.vue')

@@ -25,7 +25,7 @@
 <script>
 import L from "leaflet";
 import {useStore} from "vuex";
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 
 import GreenPin from '../assets/img/location-pin-green.png'
 import RedPin from '../assets/img/location-pin-red.png'
@@ -131,7 +131,7 @@ export default {
                 toast.error('No one to match found!')
                 matchLoading.value = false
               }
-            }).catch(err => {
+            }).catch(_ => {
               toast.error('You didn\'t match! Something went wrong')
             })
           }else{

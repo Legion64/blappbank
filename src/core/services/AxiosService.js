@@ -1,7 +1,5 @@
 import axios from "axios";
 import LocalStorageService from "./LocalStorageService.js";
-import {USER_AUTH_TOKEN} from "../constants/AuthConstants.js";
-import {defaults} from "autoprefixer";
 import { AxiosConfig } from "../configs.js";
 
 class AxiosService {

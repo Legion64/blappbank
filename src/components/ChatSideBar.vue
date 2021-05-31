@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import {inject, onBeforeMount, ref} from "vue";
+import {onBeforeMount, ref} from "vue";
 import AxiosFactory from "../core/services/AxiosService.js";
 import LocalStorageService from "../core/services/LocalStorageService.js";
 

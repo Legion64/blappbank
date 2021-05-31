@@ -45,10 +45,8 @@
 
 <script>
 import Flex from "../components/Flex.vue";
-import {defineAsyncComponent, onMounted, provide, reactive, ref} from "vue";
+import {defineAsyncComponent, reactive, ref} from "vue";
 import ChatSideBar from "../components/ChatSideBar.vue";
-import AxiosFactory from "../core/services/AxiosService.js";
-import LocalStorageService from "../core/services/LocalStorageService.js";
 
 const ChatView = defineAsyncComponent(() => import('../components/ChatView.vue'))
 

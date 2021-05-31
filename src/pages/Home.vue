@@ -80,13 +80,12 @@ import Flex from "../components/Flex.vue";
 import Tabs from "../components/Tabs.vue";
 import Tab from "../components/Tab.vue";
 import User from "../components/User.vue";
-import {onMounted, ref, reactive} from "vue";
+import {onMounted, ref} from "vue";
 import AxiosFactory from "../core/services/AxiosService.js";
 import {useStore} from "vuex";
 
 import Map from "../components/Map.vue";
 import LocalStorageService from "../core/services/LocalStorageService.js";
-import GeolocationService from "../core/services/GeolocationService.js";
 
 export default {
   name: 'Home',

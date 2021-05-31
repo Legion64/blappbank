@@ -1,7 +1,5 @@
-import {off} from "leaflet/src/dom/DomEvent.js";
-
 export default {
-    beforeMount(el, bindings, prevVNode) {
+    beforeMount(el, bindings) {
         const tooltip = document.createElement('div')
         const text = document.createTextNode(bindings.value)
         tooltip.append(text)

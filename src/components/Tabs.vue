@@ -22,7 +22,8 @@ export default {
   props: {
     modelValue: {
       type: [String, Number],
-      defaults: ''
+      required: false,
+      default: ''
     },
   },
   emits: ["update:modelValue"],
