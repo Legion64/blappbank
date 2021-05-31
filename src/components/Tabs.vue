@@ -2,7 +2,7 @@
   <div
     v-for="(tab, i) of tabs"
     :key="i"
-    class="flex-col flex-1 inline-flex text-lg font-bold uppercase h-16 w-1/2 select-none cursor-pointer hover:bg-gray-50"
+    class="flex-col flex-1 inline-flex text-lg font-bold uppercase h-16 w-full select-none"
     @click="selectTab(i)"
   >
     <Flex class="justify-center items-center h-full">

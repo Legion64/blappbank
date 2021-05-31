@@ -29,46 +29,6 @@
               <span class="text-2xl text-gray-600">You haven't made a match yet!</span>
             </div>
           </Tab>
-          <Tab title="Other Matches">
-            <div
-              v-for="(user, index) in matches"
-              :key="index"
-              class="h-16 select-none hover:bg-gray-200 odd:bg-gray-50 transition"
-            >
-              <div
-                class="flex items-center h-full mx-16"
-              >
-                <div class="ml-8">
-                  <span v-if="user">
-                    <span class="text-md">
-                      {{ user.from }}
-                    </span>
-                    <span class="mx-3"><i class="far fa-arrow-right" /></span>
-                    <span class="text-md">
-                      {{ user.to }}
-                    </span>
-                    <span
-                      v-if="user.transaction === 'notcompleted'"
-                      class="ml-5 bg-gray-600 text-white rounded-md py-1 px-2 text-sm"
-                    >Not completed</span>
-                    <span
-                      v-else-if="user.transaction === 'rejected'"
-                      class="ml-5 bg-red-600 text-white rounded-md py-1 px-2 text-sm"
-                    >Rejected</span>
-                    <span
-                      v-else-if="user.transaction === 'approved'"
-                      class="ml-5 bg-green-600 text-white rounded-md py-1 px-2 text-sm"
-                    >Completed</span>
-                  </span>
-                  <span
-                    v-else
-                    class="skeleton-box w-52"
-                  />
-                </div>
-                <div class="flex-1" />
-              </div>
-            </div>
-          </Tab>
         </Tabs>
       </div>
     </div>

@@ -140,6 +140,7 @@ export default {
       selectedUser.value = props.currentUser
       AxiosFactory().getAsync(`/api/messagelist/${LocalStorageService.json('credentials', 'username')}/${selectedUser.value}`)
           .then((res) => {
+            console.log(res)
             messages.value = res
           })
     })
@@ -154,6 +155,7 @@ export default {
       const interval = setInterval(async () => {
         await AxiosFactory().getAsync(`/api/messagelist/${LocalStorageService.json('credentials', 'username')}/${selectedUser.value}`)
             .then((res) => {
+              console.log(res)
               messages.value = res
             }).catch(_ => clearInterval(interval))
 
