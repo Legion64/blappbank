@@ -32,12 +32,16 @@
 import FormInput from "./FormInput.vue";
 import {reactive, ref} from "vue";
 import {useStore} from "vuex";
+import {useToast} from "vue-toastification";
+import {useRouter} from "vue-router";
 
 export default {
   name: "Login",
   components: {FormInput},
   setup(){
     const store = useStore()
+    const toast = useToast()
+    const router = useRouter()
 
     const username = ref('')
     const password = ref('')
@@ -65,7 +69,7 @@ export default {
       }
     }
     
-    function handleSubmitForm() {
+    async function handleSubmitForm() {
       if (store.getters['user/getLoading'])
         return false;
 
@@ -78,8 +82,17 @@ export default {
       if(errors.counter > 0)
         return false;
 
-      store.commit('user/setLoading', true)
-
+      await store.dispatch('user/login', {
+        username: username.value.trim(),
+        password: password.value.trim()
+      }).then(() => {
+        const error = store.getters['user/getErrors'];
+        if (error){
+          toast.error("Username or password is incorrect!")
+        }else{
+          router.push('/type')
+        }
+      })
 
     }
 

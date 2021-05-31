@@ -2,12 +2,13 @@ import LocalStorage from "../../services/LocalStorageService.js";
 import AxiosFactory from "../../services/AxiosService.js";
 import {USER_AUTH_TOKEN} from "../../constants/AuthConstants.js";
 import GeolocationService from "../../services/GeolocationService.js";
+import LocalStorageService from "../../services/LocalStorageService.js";
+import {comment} from "postcss";
 
 const state = () => ({
     error: null,
-    user: {},
     loading: null,
-    isAuthenticated: false,
+    isAuthenticated: LocalStorageService.has('credentials') || false,
     coords: {},
     hasNavigatorPermission: false
 });
@@ -16,14 +17,13 @@ const mutations = {
     setError(state, error) {
         state.error = error
     },
-    setUser(state, {user, token}) {
+    setUser(state, user) {
         state.error = null
         state.user = user
         state.isAuthenticated = true
-        LocalStorage.add(USER_AUTH_TOKEN, token)
+        LocalStorageService.add('credentials', JSON.stringify(user))
     },
     purgeAuth(state) {
-        state.user = {};
         state.isAuthenticated = false;
     },
     setLoading(state, status){
@@ -38,26 +38,40 @@ const mutations = {
 }
 
 const actions = {
-    login(context, payload){
+    async login(context, payload){
         context.commit('setLoading', true)
-        AxiosFactory().postAsync('/auth/login', payload).then(res => {
-            if(res.status === 200){
+        await AxiosFactory().postAsync('/auth/login', null, {
+            data: JSON.stringify(payload)
+        }).then(res => {
+            if(res){
                 context.commit('setUser', {
-                    user: {
-                        username: 'Legionary',
-                        name: 'Melih Budak'
-                    },
-                    token: res.token
+                    username: payload.username,
+                    password: payload.password
+                })
+                context.commit('setLoading', false)
+            }else{
+                context.commit('setError', {
+                    status: 'error',
+                    message: 'Username or password is incorrect!'
                 })
                 context.commit('setLoading', false)
             }
         }).catch(err => {
             context.commit('setError', err.response.data)
+            context.commit('setLoading', false)
         })
     },
     getUserCoords(context){
         return new Promise((resolve, reject) => {
-            GeolocationService.getCurrentPosition().then((res) => {
+            GeolocationService.getCurrentPosition().then(async (res) => {
+                await AxiosFactory().postAsync('/api/user', null, {
+                    data: {
+                        username: LocalStorageService.json('credentials', 'username'),
+                        enabled: 1,
+                        longitude: res.longitude,
+                        latitude: res.latitude
+                    }
+                })
                 context.commit('setCoords', {
                     latitude: res.latitude,
                     longitude: res.longitude
@@ -81,6 +95,12 @@ const getters = {
     },
     getIsAuthenticated(state){
         return state.isAuthenticated
+    },
+    getErrors(state){
+        return state.error
+    },
+    getCoords(state){
+        return state.coords
     }
 }
 

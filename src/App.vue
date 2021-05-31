@@ -1,5 +1,5 @@
 <template>
-  <nav class="px-5 transform -translate-y-3 absolute w-full">
+  <nav class="px-5 transform -translate-y-3 absolute w-full z-50">
     <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
       <div class="flex-shrink-0 flex items-center">
         <router-link to="/">
@@ -18,13 +18,15 @@
         >
           <router-link
             to="/"
-            class="bg-gray-200 text-black px-3 py-2 rounded-md text-sm font-medium"
+            class="text-white px-3 py-2 rounded-md text-sm font-medium"
+            active-class="bg-gray-800 text-black"
           >
             Dashboard
           </router-link>
           <router-link
             to="/messages"
-            class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium"
+            class="text-white px-3 py-2 rounded-md text-sm font-medium"
+            active-class="bg-gray-800 text-black"
           >
             Messages
           </router-link>
@@ -32,6 +34,14 @@
       </div>
       <div class="flex-1" />
       <div class="absolute mr-4 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <router-link
+          v-if="store.getters['user/getIsAuthenticated']"
+          to="/logout"
+          class="text-white px-3 py-2 rounded-md text-sm font-medium mr-4 hover:bg-gray-800"
+          active-class="bg-gray-800 text-black"
+        >
+          Logout
+        </router-link>
         <router-link
           v-if="store.getters['user/getIsAuthenticated']"
           to="/profile"
@@ -56,6 +66,8 @@
 
 <script>
 import {useStore} from "vuex";
+import LocalStorageService from "./core/services/LocalStorageService.js";
+import {ref} from "vue";
 
 export default {
   setup(){

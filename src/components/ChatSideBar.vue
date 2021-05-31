@@ -7,10 +7,10 @@
     v-bind="$attrs"
   >
     <div
-      v-for="(room, index) of rooms"
+      v-for="(user, index) of chats"
       :key="index"
       class="h-16 select-none cursor-pointer hover:bg-gray-200 transition odd:bg-gray-50"
-      @click="$emit('update:modelValue', room.roomId)"
+      @click="$emit('currentUser', user)"
     >
       <div
         class="flex items-center h-full px-7"
@@ -19,7 +19,7 @@
           class="h-12 w-12 rounded-full bg-dark-600"
         />
         <span class="ml-8">
-          {{ reduceParticipant(room.participants) }}
+          {{ user }}
         </span>
       </div>
     </div>
@@ -27,29 +27,25 @@
 </template>
 
 <script>
-import {inject} from "vue";
+import {inject, onBeforeMount, ref} from "vue";
+import AxiosFactory from "../core/services/AxiosService.js";
+import LocalStorageService from "../core/services/LocalStorageService.js";
 
 export default {
   name: "ChatSideBar",
   props: [],
-  emits: ['update:modelValue'],
+  emits: ['currentUser'],
   setup() {
-    const rooms = inject('chat');
+    const chats = ref([])
 
-    // TODO: Changing with vuex state
-    const loggedInUserId = 1
-
-    function reduceParticipant(participantsId) {
-      const participants = []
-      const filtered = participantsId
-          .filter(par => par.id !== loggedInUserId)
-      filtered.map(par => participants.push(par.name))
-      return participants.join(', ')
-    }
+    onBeforeMount(() => {
+      AxiosFactory().getAsync(`/api/messages/user/${LocalStorageService.json('credentials', 'username')}`).then(res => {
+        chats.value = res
+      })
+    })
 
     return {
-      rooms,
-      reduceParticipant
+      chats
     }
   }
 }

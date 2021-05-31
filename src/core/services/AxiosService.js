@@ -4,14 +4,17 @@ import {USER_AUTH_TOKEN} from "../constants/AuthConstants.js";
 import {defaults} from "autoprefixer";
 import { AxiosConfig } from "../configs.js";
 
-let AxiosInstance = null;
-
 class AxiosService {
     constructor() {
-        if (LocalStorageService.has(USER_AUTH_TOKEN)){
-            axios.defaults.headers.common['Authorization'] = LocalStorageService.get(USER_AUTH_TOKEN);
-        }
         axios.defaults.baseURL = AxiosConfig.baseURL;
+        if(LocalStorageService.has('credentials')){
+            const credentials = JSON.parse(LocalStorageService.get('credentials'))
+            axios.defaults.auth = {
+                username: credentials.username,
+                password: credentials.password
+            }
+        }
+        axios.defaults.headers.post["Content-Type"] = 'application/json'
     }
 
     /**
@@ -108,8 +111,5 @@ class AxiosService {
 }
 
 export default function AxiosFactory() {
-    if (AxiosInstance === null)
-        AxiosInstance = new AxiosService()
-
-    return AxiosInstance;
+    return new AxiosService();
 }

@@ -8,7 +8,7 @@ html, body, #app {
 }
 
 .card {
-    min-height: 600px;
+    max-height: 730px;
 }
 
 .map{
@@ -78,4 +78,47 @@ html, body, #app {
 .error-enter-to,
 .error-leave-from {
     opacity: 1;
+}
+
+.skeleton-box {
+    display: inline-block;
+    height: 1.5rem;
+    border-radius: 50px;
+    position: relative;
+    overflow: hidden;
+    background-color: #DDDBDD;
+}
+.skeleton-box::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+    -webkit-animation: shimmer 2s infinite;
+    animation: shimmer 2s infinite;
+    content: "";
+}
+@-webkit-keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.profile-table tr td:first-child{
+    width: 8rem;
+}
+.profile-table tr td:last-child{
+    width: calc(100% - 2px);
+}
+
+.profile-table tr td{
+    color: #5E5E5E;
+    @apply p-2 font-medium text-sm
 }

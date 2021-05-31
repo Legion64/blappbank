@@ -1,10 +1,11 @@
 <template>
   <Flex :classes="['h-full', 'flex-col']">
-    <div class="card w-full md:w-8/12 h-20 bg-white flex md:rounded-xl shadow-2xl overflow-hidden">
+    <div class="card w-full md:w-8/12 h-full bg-white flex md:rounded-xl shadow-2xl overflow-hidden">
       <div
         class="flex-1 flex justify-center items-center hover:bg-gray-100 transition duration-300 cursor-pointer relative border-b-0 border-t-0 border-l-0 border-r-1 border"
         @mouseenter="showNeederEvent(true)"
         @mouseleave="showNeederEvent(false)"
+        @click="handleNeederClick"
       >
         <transition
           name="fade"
@@ -30,6 +31,7 @@
         class="flex-1 flex justify-center items-center hover:bg-gray-100 transition duration-300 cursor-pointer relative"
         @mouseenter="showDonatorEvent(true)"
         @mouseleave="showDonatorEvent(false)"
+        @click="handleDonatorClick"
       >
         <transition
           name="fade"
@@ -61,11 +63,18 @@
 <script>
 import {ref} from "vue";
 import Flex from "../components/Flex.vue";
+import AxiosFactory from "../core/services/AxiosService.js";
+import LocalStorageService from "../core/services/LocalStorageService.js";
+import {useToast} from "vue-toastification";
+import {useRouter} from "vue-router";
 
 export default {
 	name: "TypeSelector",
 	components: {Flex},
 	setup() {
+    const toast = useToast()
+    const router = useRouter()
+
 		const showNeeder = ref(false);
 		const showDonator = ref(false);
 
@@ -77,11 +86,36 @@ export default {
 			showDonator.value = visibility;
 		}
 
+		function handleNeederClick() {
+		  typeSave("needer")
+    }
+
+		function handleDonatorClick() {
+		  typeSave("donator")
+    }
+
+    function typeSave(type){
+      AxiosFactory().postAsync('/api/user', null, {
+        data: {
+          username: LocalStorageService.json('credentials', 'username'),
+          enabled: 1,
+          type
+        }
+      }).then(res => {
+        if(res === 'ok'){
+          toast.success(`${type} successfully selected!`)
+          router.push('/')
+        }
+      })
+    }
+
 		return {
 			showNeeder,
 			showDonator,
 			showNeederEvent,
-			showDonatorEvent
+			showDonatorEvent,
+      handleNeederClick,
+      handleDonatorClick
 		}
 	}
 }

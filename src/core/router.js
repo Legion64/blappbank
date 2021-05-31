@@ -1,6 +1,8 @@
 import * as VueRouter from 'vue-router'
 
 import store from './store/index.js'
+import LocalStorageService from "./services/LocalStorageService.js";
+import {useRouter} from "vue-router";
 
 const Home = () => import('../pages/Home.vue')
 const Auth = () => import('../pages/Auth.vue')
@@ -8,6 +10,7 @@ const TypeSelector = () => import('../pages/TypeSelector.vue')
 const Messenger = () => import('../pages/Messenger.vue')
 const Profile = () => import('../pages/Profile.vue')
 const NotFound = () => import('../pages/404.vue')
+const Logout = () => import("../pages/Logout.vue")
 
 const routes = [
     {
@@ -43,6 +46,10 @@ const routes = [
         }
     },
     {
+        path: '/logout',
+        component: Logout,
+    },
+    {
         path: '/:catchAll(.*)',
         component: NotFound
     }
@@ -53,7 +60,7 @@ const router = VueRouter.createRouter({
     routes
 })
 
-/*router.beforeEach(
+router.beforeEach(
     (to, from, next) => {
         if (to.matched.some(record => record.meta.requiresLogin) && !store.state.user.isAuthenticated) {
             next('/auth/login')
@@ -61,6 +68,6 @@ const router = VueRouter.createRouter({
             next()
         }
     }
-)*/
+)
 
 export default router;

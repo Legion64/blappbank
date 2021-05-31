@@ -8,7 +8,7 @@
         :class="active !== null ? 'hidden md:block' : null"
       >
         <ChatSideBar
-          v-model="active"
+          @current-user="active = $event"
         />
       </div>
       <div class="vertical-divider hidden md:block" />
@@ -18,7 +18,7 @@
       >
         <ChatView
           v-if="active !== null"
-          :selected-chat="active"
+          :current-user="active"
         />
         <div
           v-else
@@ -45,8 +45,10 @@
 
 <script>
 import Flex from "../components/Flex.vue";
-import {defineAsyncComponent, provide, reactive, ref} from "vue";
+import {defineAsyncComponent, onMounted, provide, reactive, ref} from "vue";
 import ChatSideBar from "../components/ChatSideBar.vue";
+import AxiosFactory from "../core/services/AxiosService.js";
+import LocalStorageService from "../core/services/LocalStorageService.js";
 
 const ChatView = defineAsyncComponent(() => import('../components/ChatView.vue'))
 
@@ -62,79 +64,8 @@ export default {
 
     const active = ref(null)
 
-    const chat = ref([
-          {
-            roomId: 1,
-            participants: [
-              {
-                id: 1,
-                name: 'Melih Budak'
-              },
-              {
-                id: 2,
-                name: 'Yeşim Budak'
-              }
-            ],
-            messages: [
-                {
-                  id: 1,
-                  message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi semper nisi id lacus blandit pellentesque. Duis vel magna eget eros commodo lobortis quis sed quam. Maecenas non nisl sapien. Quisque quam mauris, vehicula et tortor ac, commodo tincidunt arcu. In eu viverra urna. Suspendisse tincidunt quis urna nec vehicula. Nam accumsan diam vel quam mattis, sed rhoncus urna pretium. Maecenas euismod elementum orci vel tristique. Nunc sed lobortis urna. Morbi vel nibh finibus orci tempor pulvinar.',
-                  created_at: 20022001,
-                  author_id: 1
-                },
-                {
-                  id: 2,
-                  message: 'Sed ullamcorper elit turpis, pulvinar ornare libero feugiat et. Vestibulum faucibus quis ex et tempor. Duis ornare erat nibh, ut lobortis turpis facilisis eu. Morbi suscipit vulputate maximus. Nullam massa augue, dictum id condimentum vitae, aliquet ac elit. Integer auctor est ut scelerisque laoreet. Mauris placerat justo vel lorem condimentum, vitae tincidunt urna scelerisque. In nec turpis eu augue tempus tempus. Duis a lacus ligula. Morbi laoreet fringilla pulvinar. Nulla varius orci risus, eu semper purus condimentum at. Nam et vulputate odio, non euismod elit. Etiam lectus sapien, fermentum sed quam eget, consequat cursus nibh. Aliquam arcu arcu, sollicitudin vitae sapien sed, gravida fermentum nulla.',
-                  created_at: 982657842,
-                  author_id: 2
-                }
-            ],
-            isActive: true
-          },
-          {
-            roomId: 2,
-            participants: [
-              {
-                id: 1,
-                name: 'Melih Budak'
-              },
-              {
-                id: 2,
-                name: 'Berkay Akdeniz'
-              }
-            ],
-            messages: [],
-            isActive: true
-          },
-        ]
-    );
-
-    provide('chat', chat)
-
-    // Functions
-    /*async function fetchUsers(){
-      await AxiosFactory().getAsync('/users').then(res => {
-        state.loader = false
-        state.users = res
-        state.error = null
-      }).catch(err => {
-        state.error = err
-        setTimeout(() => fetchUsers(), 5000)
-      });
-    }*/
-
-    function handleUser(i) {
-      active.value = i
-    }
-
-    // Lifecycle Hooks
-    /*onMounted(async () => {
-      await fetchUsers();
-    })*/
-
     return {
       state,
-      handleUser,
       active
     }
   }
