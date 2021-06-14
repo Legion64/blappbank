@@ -64,13 +64,13 @@ export default {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      const neederIcon = L.icon({
+      const userIcon = L.icon({
         iconUrl: BlackPin,
         iconSize: [32, 32]
       })
 
       L.marker([currentUserCoords.latitude, currentUserCoords.longitude], {
-        icon: neederIcon
+        icon: userIcon
       }).addTo(map)
     }
 

@@ -55,7 +55,6 @@ export default {
     const active = ref(0);
 
     const myMatches = ref([])
-    const matches = ref([])
 
     async function fetchMyMatches() {
       await AxiosFactory().getAsync('/api/messages/user/' + LocalStorageService.json('credentials', 'username')).then(res => {
@@ -65,29 +64,14 @@ export default {
       });
     }
 
-    async function allMatches() {
-      matches.value.push({
-        from: 'admin',
-        to: 'melihb',
-        transaction: 'approved'
-      })
-      matches.value.push({
-        from: 'ubozdgn',
-        to: 'melihb',
-        transaction: 'rejected'
-      })
-    }
-
     onMounted(() => {
       fetchMyMatches();
-      allMatches()
     })
 
     return {
       active,
       store,
-      myMatches,
-      matches
+      myMatches
     };
   },
 }
