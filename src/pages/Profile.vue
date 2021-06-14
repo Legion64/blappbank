@@ -136,7 +136,7 @@
               v-model="questionsAnswers.q1"
               type="checkbox"
               :disabled="!editable"
-              :checked="questionsAnswers.q1 || false"
+              :checked="questionsAnswers.q1"
             >
           </label>
           <label class="flex justify-between my-3">
@@ -145,7 +145,7 @@
               v-model="questionsAnswers.q2"
               type="checkbox"
               :disabled="!editable"
-              :checked="questionsAnswers.q2 || false"
+              :checked="questionsAnswers.q2"
             >
           </label>
           <label class="flex justify-between my-3">
@@ -154,7 +154,7 @@
               v-model="questionsAnswers.q3"
               type="checkbox"
               :disabled="!editable"
-              :checked="questionsAnswers.q3 || false"
+              :checked="questionsAnswers.q3"
             >
           </label>
         </div>
@@ -165,7 +165,7 @@
 
 <script>
 import Flex from "../components/Flex.vue";
-import {onMounted, ref, watch} from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 import AxiosFactory from "../core/services/AxiosService.js";
 import LocalStorageService from "../core/services/LocalStorageService.js";
 import {useToast} from "vue-toastification";
@@ -178,15 +178,20 @@ export default {
 
     const editable = ref(false)
     const currentUser = ref({})
-    const questionsAnswers = ref({})
+    const questionsAnswers = reactive({
+      q1: false,
+      q2: false,
+      q3: false
+    })
 
     const fetchCurrentUser = () => {
       AxiosFactory().getAsync('/api/user/' + LocalStorageService.json('credentials', 'username')).then(res => {
         currentUser.value = res
       })
       AxiosFactory().getAsync(`/api/questions/${LocalStorageService.json('credentials', 'username')}`).then((res) => {
-        console.log(res)
-        questionsAnswers.value = res
+        questionsAnswers.q1 = res.q1;
+        questionsAnswers.q2 = res.q2;
+        questionsAnswers.q3 = res.q3;
       })
     }
 
@@ -208,9 +213,9 @@ export default {
       AxiosFactory().postAsync('/api/questions', null, {
         data: {
           username: LocalStorageService.json('credentials', 'username'),
-          q1: questionsAnswers.value.q1,
-          q2: questionsAnswers.value.q2,
-          q3: questionsAnswers.value.q3
+          q1: questionsAnswers.q1,
+          q2: questionsAnswers.q2,
+          q3: questionsAnswers.q3
         }
       }).catch(_ => error = true)
 

@@ -27,8 +27,9 @@ import L from "leaflet";
 import {useStore} from "vuex";
 import {onMounted, ref} from "vue";
 
-import GreenPin from '../assets/img/location-pin-green.png'
-import RedPin from '../assets/img/location-pin-red.png'
+import GreenPin from '../assets/img/location_pin_green.png'
+import RedPin from '../assets/img/location_pin_red.png'
+import BlackPin from '../assets/img/location_pin.png'
 import AxiosFactory from "../core/services/AxiosService.js";
 import GeolocationService from "../core/services/GeolocationService.js";
 import LocalStorageService from "../core/services/LocalStorageService.js";
@@ -63,7 +64,14 @@ export default {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
 
-      L.marker([currentUserCoords.latitude, currentUserCoords.longitude]).addTo(map)
+      const neederIcon = L.icon({
+        iconUrl: BlackPin,
+        iconSize: [32, 32]
+      })
+
+      L.marker([currentUserCoords.latitude, currentUserCoords.longitude], {
+        icon: neederIcon
+      }).addTo(map)
     }
 
     function getRandomInt(min, max) {
@@ -76,6 +84,12 @@ export default {
       matchLoading.value = true
       const currentUser = LocalStorageService.json('credentials', 'username')
       await AxiosFactory().getAsync("/api/user/" + currentUser).then(res => {
+        if (res.bloodType === null){
+          toast.error('Please save your blood type from profile!')
+          matchLoading.value = false
+          return;
+        }
+
         AxiosFactory().getAsync(`/api/questions/${currentUser}`).then(data => {
           const questions = {
             q1: data.q1 || false,
@@ -88,6 +102,7 @@ export default {
                 longitude: store.getters['user/getCoords'].longitude,
                 latitude: store.getters['user/getCoords'].latitude,
                 type: res.type === 'donator' ? 'needer' : 'donator',
+                bloodType: res.bloodType,
                 sequence: 1
               }
             }).then(async res => {

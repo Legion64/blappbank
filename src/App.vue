@@ -1,5 +1,7 @@
 <template>
-  <nav class="px-5 transform -translate-y-3 absolute w-full z-50">
+  <nav
+    class="px-5 transform -translate-y-3 absolute w-full"
+  >
     <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
       <div class="flex-shrink-0 flex items-center">
         <router-link to="/">
@@ -32,7 +34,9 @@
           </router-link>
         </div>
       </div>
-      <div class="flex-1" />
+      <div
+        class="flex-1"
+      />
       <div class="absolute mr-4 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <router-link
           v-if="store.getters['user/getIsAuthenticated']"

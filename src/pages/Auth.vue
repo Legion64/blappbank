@@ -1,5 +1,7 @@
 <template>
-  <Flex :classes="['h-full']">
+  <Flex
+    :classes="['h-full']"
+  >
     <div class="card w-full md:w-8/12 h-full bg-white flex md:rounded-xl shadow-2xl overflow-hidden">
       <div class="hidden md:flex flex-1 md:flex-1 xl:flex-2 h-full bg-gradient-radial from-custom-blue to-gray-900 flex-col justify-center items-center text-white">
         <h1 class="font-bold md:text-2xl xl:text-4xl text-center">
