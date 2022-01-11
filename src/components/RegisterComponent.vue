@@ -93,13 +93,13 @@ export default {
     })
     let errors = ref([])
 
-    function identityNumberCheck(number) {
-      const figures = number.split('').map(Number)
-      const lastFigure = figures.pop()
-      const total = figures.reduce((a, b) => a + b, 0).toString()
-      const validator = parseInt(total.split('').pop())
-      return lastFigure === validator;
-    }
+    // function identityNumberCheck(number) {
+    //   const figures = number.split('').map(Number)
+    //   const lastFigure = figures.pop()
+    //   const total = figures.reduce((a, b) => a + b, 0).toString()
+    //   const validator = parseInt(total.split('').pop())
+    //   return lastFigure === validator;
+    // }
 
     function resetErrors() {
       errors.value = []
@@ -129,8 +129,6 @@ export default {
       // Identifier Number Check
       if (credentials.identifier.trim() === ''){
         errors.value.push('Username must not be empty!')
-      }else if(!identityNumberCheck(credentials.identifier.trim())){
-        errors.value.push('Identifier number not valid!')
       }
 
       // Phone number check
